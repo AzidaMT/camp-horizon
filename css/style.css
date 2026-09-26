@@ -401,6 +401,17 @@ body {
 }
 
 /*Student 2: Programs and sections*/
+.program-image-section {
+  margin: 2rem 0 4rem;
+}
+
+.program-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  display: block;
+}
 /* Program grid */
 .program-grid {
   display:grid;
