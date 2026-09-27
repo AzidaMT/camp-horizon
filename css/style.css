@@ -520,3 +520,71 @@ body {
     font-size: 0.8rem;
   }
 }
+
+.hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: var(--text-main);
+}
+
+.hero-content p {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 1.5rem auto;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.secondary-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.secondary-btn:hover {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.hero-image-container {
+  width: 100%;
+}
+
+.highlights-section,
+.sessions-preview-section,
+.testimonials-section,
+.news-section {
+  margin-bottom: 4rem;
+}
+
+.view-more-container {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.view-more-link {
+  color: var(--primary-color);
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.05rem;
+  transition: color 0.2s ease;
+}
+
+.view-more-link:hover {
+  color: var(--primary-dark);
+}
