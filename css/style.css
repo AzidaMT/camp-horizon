@@ -788,3 +788,12 @@ body {
     height: 200px;
   }
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
+.card-img {
+  width: 100%;
+  height: 250px; /* или нужная высота */
+  object-fit: cover; /* сохраняет пропорции и обрезает лишнее */
+}
