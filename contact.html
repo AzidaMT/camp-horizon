@@ -17,7 +17,7 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="services.html">Sessions & Fees</a></li>
         <li><a href="about.html">About Us</a></li>
-        <li><a href="contact.html" class="active">Gallery & Booking</a></li>
+        <li><a href="contact.html" class="active" aria-current="page">Gallery & Booking</a></li>
       </ul>
     </nav>
   </header>
@@ -65,32 +65,36 @@
     </section>
 
     <!-- 2. Booking Form Section (Flexbox Layout) -->
-    <section class="booking-section">
-      <h2 class="section-title">Reserve a Camp Session</h2>
-      <p class="section-subtitle">Fill out the registration form below. Our camp coordinators will contact you within 24 hours.</p>
+   <section class="booking-section">
+      <div class="section-header">
+        <h2 class="section-title">Reserve a Camp Session</h2>
+        <p class="section-subtitle">Fill out the registration form below to test our native booking workflow.</p>
+        <p id="demo-note" style="color: #64748b; font-size: 0.9rem; margin-top: 0.5rem;">
+          Demo only. Your information is not sent or stored. Use sample details to test validation.
+        </p>
+      </div>
 
-      <form class="booking-form" action="#" method="POST" onsubmit="event.preventDefault(); alert('Booking request submitted successfully! We will contact you soon.');">
-        
+      <form action="demo-result.html" method="get" aria-describedby="demo-note" class="booking-form">
         <fieldset class="form-group">
           <legend>Guardian Information</legend>
           <div class="flex-row">
             <div class="field-item">
               <label for="guardianName">Full Name *</label>
-              <input type="text" id="guardianName" name="guardianName" placeholder="e.g. Sarah Jenkins" required>
+              <input type="text" id="guardianName" placeholder="e.g. Sarah Jenkins" autocomplete="name" required>
             </div>
             <div class="field-item">
               <label for="guardianEmail">Email Address *</label>
-              <input type="email" id="guardianEmail" name="guardianEmail" placeholder="sarah@example.com" required>
+              <input type="email" id="guardianEmail" placeholder="sarah@example.com" autocomplete="email" required>
             </div>
           </div>
           <div class="flex-row">
             <div class="field-item">
               <label for="guardianPhone">Phone Number *</label>
-              <input type="tel" id="guardianPhone" name="guardianPhone" placeholder="+7 (700) 000-00-00" required>
+              <input type="tel" id="guardianPhone" placeholder="+7 (700) 000-00-00" autocomplete="tel" required>
             </div>
             <div class="field-item">
-              <label for="emergencyContact">Emergency Phone</label>
-              <input type="tel" id="emergencyContact" name="emergencyContact" placeholder="+7 (705) 111-22-33">
+              <label for="emergencyPhone">Emergency Phone</label>
+              <input type="tel" id="emergencyPhone" placeholder="+7 (705) 111-22-33">
             </div>
           </div>
         </fieldset>
@@ -100,71 +104,48 @@
           <div class="flex-row">
             <div class="field-item">
               <label for="camperName">Camper's Full Name *</label>
-              <input type="text" id="camperName" name="camperName" placeholder="Child's name" required>
+              <input type="text" id="camperName" placeholder="Child's name" required>
             </div>
             <div class="field-item">
               <label for="camperAge">Camper's Age (7-17) *</label>
-              <input type="number" id="camperAge" name="camperAge" min="7" max="17" placeholder="12" required>
+              <input type="number" id="camperAge" min="7" max="17" placeholder="12" required>
             </div>
           </div>
 
-          <div class="flex-row">
-            <div class="field-item">
-              <label for="sessionSelect">Select Session Track *</label>
-              <select id="sessionSelect" name="sessionTrack" required>
-                <option value="">-- Choose a summer session --</option>
-                <option value="wilderness">Session 1: Wilderness Explorer (June 10 - June 24)</option>
-                <option value="water-sports">Session 2: Water Sports & Aquatics (July 01 - July 15)</option>
-                <option value="creative-tech">Session 3: Arts & Creative Media (July 20 - August 03)</option>
-                <option value="leadership">Session 4: Junior Leadership Camp (August 08 - August 22)</option>
-              </select>
-            </div>
+          <div class="field-item full-width">
+            <label for="sessionSelect">Select Session Track *</label>
+            <select id="sessionSelect" required>
+              <option value="">-- Choose a summer session --</option>
+              <option value="session1">Session 1: Wilderness Explorer (June 10 - June 24)</option>
+              <option value="session2">Session 2: Water Sports & Aquatics (July 01 - July 15)</option>
+              <option value="session3">Session 3: Arts & Creative Media (July 20 - August 03)</option>
+              <option value="session4">Session 4: Junior Leadership Camp (August 08 - August 22)</option>
+            </select>
           </div>
 
-          <div class="field-item">
-            <span class="field-label">Accommodation Type:</span>
-            <div class="options-container">
-              <label class="radio-label">
-                <input type="radio" name="accommodation" value="cabin" checked>
-                Woodland Cabin (Shared bunk)
+          <div class="field-item full-width">
+            <label>Accommodation Type:</label>
+            <div class="options-container radio-group">
+              <label class="option-label">
+                <input type="radio" value="cabin" checked> Woodland Cabin (Shared bunk)
               </label>
-              <label class="radio-label">
-                <input type="radio" name="accommodation" value="tent">
-                Eco-Tent Glamping
+              <label class="option-label">
+                <input type="radio" value="glamping"> Eco-Tent Glamping
               </label>
             </div>
           </div>
 
-          <div class="field-item">
-            <span class="field-label">Additional Add-ons:</span>
-            <div class="options-container">
-              <label class="checkbox-label">
-                <input type="checkbox" name="addons" value="transfer">
-                City Shuttle Round-Trip Transfer ($40)
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="addons" value="equipment">
-                Premium Camping Equipment Rental ($65)
-              </label>
-              <label class="checkbox-label">
-                <input type="checkbox" name="addons" value="photos">
-                Personalized Camp Photo & Video Pack ($30)
-              </label>
-            </div>
-          </div>
-
-          <div class="field-item">
+          <div class="field-item full-width">
             <label for="notes">Dietary Needs or Medical Notes</label>
-            <textarea id="notes" name="notes" rows="4" placeholder="Any allergies, dietary restrictions, or notes for camp mentors..."></textarea>
+            <textarea id="notes" rows="4" placeholder="Any allergies, dietary restrictions, or notes for camp mentors..."></textarea>
           </div>
         </fieldset>
 
         <div class="form-actions">
-          <button type="submit" class="submit-btn">Submit Booking Request</button>
+          <button type="submit" class="submit-btn">Check Demo Booking</button>
         </div>
       </form>
     </section>
-
     <!-- 3. Contact Info & FAQ -->
     <section class="info-faq-section">
       <div class="contact-card">
