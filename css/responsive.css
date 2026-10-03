@@ -78,3 +78,31 @@
   }
 }
 /*STUDENT 4: END OF STYLES*/
+
+/*student 2: responsive programs*/
+@media (min-width: 48rem) {
+  .program-grid {
+    grid-template-columns: repeat(2,minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
+  .program-grid {
+    grid-template-columns: repeat(3,minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 480px) {
+  .program-image-section {
+    margin: 1.5rem 0;
+  }
+
+  .program-card {
+    padding: 1.25rem
+  }
+
+  .addon-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

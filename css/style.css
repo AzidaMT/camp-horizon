@@ -407,7 +407,8 @@ body {
 
 .program-image {
   width: 100%;
-  height: 320px;
+  aspect-ratio: 16 / 7;
+  height: auto;
   object-fit: cover;
   border-radius: var(--radius);
   display: block;
@@ -415,12 +416,13 @@ body {
 /* Program grid */
 .program-grid {
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 2rem;
-  margin-top: 2rem;
+  margin: 2rem;
 }
 
 .program-card {
+  min-width: 0;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -445,8 +447,14 @@ body {
 }
 
 /*Table for schedule and prices*/
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
 .schedule-table {
   width: 100%;
+  min-width: 600px;
   border-collapse: collapse;
   margin-top: 2rem;
   background-color: var(--bg-card);
@@ -457,6 +465,7 @@ body {
   border: 1px solid var(--border-color);
   padding: 0.75rem 1rem;
   text-align: left;
+  white-space: nowrap;
 }
 
 .schedule-table th {
@@ -480,6 +489,8 @@ body {
   display:flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
   background-color: var(--bg-card);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -493,108 +504,6 @@ body {
 .addon-item span {
   font-weight: 600;
   color: var(--primary-color);
-}
-
-/*responsive design for student 2 */
-@media (max-width: 768px) {
-  .program-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schedule-table {
-    font-size: 0.9rem;
-  }
-
-  .schedule-table th,
-  .schedule-table td {
-    padding: 0.75rem;
-  }
-}
-
-@media (max-width: 480px){
-  .program-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .schedule-table {
-    font-size: 0.8rem;
-  }
-}
-
-.hero-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2rem;
-  margin-bottom: 4rem;
-}
-
-.hero-content h1 {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 0.75rem;
-  color: var(--text-main);
-}
-
-.hero-content p {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  max-width: 700px;
-  margin: 0 auto 1.5rem auto;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.secondary-btn {
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-}
-
-.secondary-btn:hover {
-  background-color: var(--primary-color);
-  color: #ffffff;
-}
-
-.hero-image-container {
-    width: 100%;
-}
-
-.hero-image-container img {
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
-    border-radius: var(--radius);
-    display: block;
-}
-
-.highlights-section,
-.sessions-preview-section,
-.testimonials-section,
-.news-section {
-  margin-bottom: 4rem;
-}
-
-.view-more-container {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-.view-more-link {
-  color: var(--primary-color);
-  font-weight: 700;
-  text-decoration: none;
-  font-size: 1.05rem;
-  transition: color 0.2s ease;
-}
-
-.view-more-link:hover {
-  color: var(--primary-dark);
 }
 /* ==========================================
    STUDENT 3 STYLES: ABOUT US PAGE
