@@ -34,3 +34,6 @@ camp-horizon/
       responsive.css
    images/
    README.md
+
+   ## Static Form Demonstration
+The booking form on `contact.html` is a static demonstration interface. It uses native HTML5 browser validation (types, required attributes) and navigates to `demo-result.html`. In accordance with project specifications, no JavaScript or server-side data processing is utilized, and no user data is collected or stored.
