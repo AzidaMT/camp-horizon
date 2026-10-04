@@ -9,11 +9,13 @@
 </head>
 <body>
 
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
   <header class="site-header">
     <div class="logo">Camp <span>Horizon</span></div>
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Main navigation">
       <ul>
-        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="index.html" class="active" aria-current="page">Home</a></li>
         <li><a href="services.html">Sessions & Fees</a></li>
         <li><a href="about.html">About Us</a></li>
         <li><a href="contact.html">Gallery & Booking</a></li>
@@ -21,19 +23,19 @@
     </nav>
   </header>
 
-  <main class="page-container">
+  <main id="main-content" class="page-container">
 
     <section class="hero-section">
       <div class="hero-content">
         <h1>Welcome to Camp Horizon</h1>
         <p>Inspiring young minds through outdoor adventure, creative arts, and leadership in the heart of nature.</p>
         <div class="hero-actions">
-          <a href="contact.html" class="submit-btn" style="text-decoration: none; display: inline-block;">Book A Session</a>
-          <a href="services.html" class="submit-btn secondary-btn" style="text-decoration: none; display: inline-block;">Explore Programs</a>
+          <a href="contact.html#booking-section" class="submit-btn">Book A Session</a>
+          <a href="services.html#programs" class="submit-btn secondary-btn">Explore Programs</a>
         </div>
       </div>
       <div class="hero-image-container">
-        <img src="img/camp.png" alt="Campers sitting around a campfire at sunset near a lake">
+        <img src="img/camp.png" alt="Campers sitting around a campfire at sunset near a lake" width="800" height="420" loading="eager">
       </div>
     </section>
 
@@ -41,25 +43,41 @@
       <h2 class="section-title">Why Choose Camp Horizon?</h2>
       <p class="section-subtitle">We build confidence, teamwork, and outdoor skills in a safe and supportive setting.</p>
 
-      <div class="program-grid">
+      <div class="program-grid highlights-grid">
         <article class="program-card">
-          <h3>🌲 Outdoor Adventure</h3>
+          <div class="card-icon" aria-hidden="true">🌲</div>
+          <h3>Outdoor Adventure</h3>
           <p>Guided mountain trekking, kayaking, campfire survival skills, and wilderness exploration for all experience levels.</p>
         </article>
 
         <article class="program-card">
-          <h3>🛡️ Certified Safety</h3>
+          <div class="card-icon" aria-hidden="true">🛡️</div>
+          <h3>Certified Safety</h3>
           <p>Strict 1:6 counselor-to-camper ratio with a 24/7 medical station and certified lifeguards on site.</p>
         </article>
 
         <article class="program-card">
-          <h3>🎨 Creative Workshops</h3>
+          <div class="card-icon" aria-hidden="true">🎨</div>
+          <h3>Creative Workshops</h3>
           <p>Hands-on art, music, theater, and digital media tracks that nurture creativity alongside physical activities.</p>
         </article>
 
         <article class="program-card">
-          <h3>🤝 Lifelong Friendships</h3>
+          <div class="card-icon" aria-hidden="true">🤝</div>
+          <h3>Lifelong Friendships</h3>
           <p>Team athletic games, cabin bonding, and evening traditions designed to build lasting bonds and confidence.</p>
+        </article>
+
+        <article class="program-card">
+          <div class="card-icon" aria-hidden="true">💻</div>
+          <h3>Modern Innovation</h3>
+          <p>Workshops in robotics, web development, and digital media blending tech skills with nature.</p>
+        </article>
+
+        <article class="program-card">
+          <div class="card-icon" aria-hidden="true">🥗</div>
+          <h3>Nutritional Dining</h3>
+          <p>Three freshly cooked, chef-prepared meals daily catering to all dietary requirements and allergies.</p>
         </article>
       </div>
     </section>
@@ -71,25 +89,25 @@
       <div class="program-grid">
         <article class="program-card">
           <h3>Wilderness Explorer</h3>
-          <span>June 10 - June 24 | $450</span>
+          <span class="price-tag">June 10 - June 24 | $450</span>
           <p>Master outdoor navigation, shelter building, and mountain hiking trails.</p>
         </article>
 
         <article class="program-card">
           <h3>Water Sports & Aquatics</h3>
-          <span>July 01 - July 15 | $300</span>
+          <span class="price-tag">July 01 - July 15 | $300</span>
           <p>Lake kayaking, swimming, water safety certifications, and team regattas.</p>
         </article>
 
         <article class="program-card">
           <h3>Arts & Creative Media</h3>
-          <span>July 20 - August 03 | $250</span>
+          <span class="price-tag">July 20 - August 03 | $250</span>
           <p>Visual crafting, outdoor drama, photography, and film production workshops.</p>
         </article>
       </div>
 
       <div class="view-more-container">
-        <a href="services.html" class="view-more-link">View Full Schedule & Fees →</a>
+        <a href="services.html#schedule-table" class="view-more-link">View Full Schedule & Fees →</a>
       </div>
     </section>
 
@@ -98,43 +116,48 @@
       <p class="section-subtitle">Real feedback from our Camp Horizon family.</p>
 
       <div class="program-grid">
-        <article class="program-card">
-          <p><em>"Camp Horizon was the highlight of my daughter's summer. She returned home more confident, independent, and full of incredible stories!"</em></p>
-          <br>
-          <span>— Maria S., Parent</span>
+        <article class="program-card testimonial-card">
+          <blockquote>
+            <p><em>"Camp Horizon was the highlight of my daughter's summer. She returned home more confident, independent, and full of incredible stories!"</em></p>
+          </blockquote>
+          <cite>— Maria S., Parent</cite>
         </article>
 
-        <article class="program-card">
-          <p><em>"The lake kayaking trips and evening campfires were amazing. I made friends that I still talk to every single week."</em></p>
-          <br>
-          <span>— David K., Camper (Age 14)</span>
+        <article class="program-card testimonial-card">
+          <blockquote>
+            <p><em>"The lake kayaking trips and evening campfires were amazing. I made friends that I still talk to every single week."</em></p>
+          </blockquote>
+          <cite>— David K., Camper (Age 14)</cite>
         </article>
 
-        <article class="program-card">
-          <p><em>"Outstanding organization, dedicated counselors, and top-notch safety standards. We've already signed up for next summer!"</em></p>
-          <br>
-          <span>— Robert P., Parent</span>
+        <article class="program-card testimonial-card">
+          <blockquote>
+            <p><em>"Outstanding organization, dedicated counselors, and top-notch safety standards. We've already signed up for next summer!"</em></p>
+          </blockquote>
+          <cite>— Robert P., Parent</cite>
         </article>
       </div>
     </section>
 
-    <section class="news-section">
+    <section id="news" class="news-section">
       <h2 class="section-title">Latest News & Updates</h2>
+      <p class="section-subtitle">Stay informed on camp announcements and facility upgrades.</p>
+
       <div class="add-ons">
         <article class="addon-item">
           <div>
             <h3>Early Bird Registration Now Open</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Reserve a session before April 30 to receive 10% off any 2-week program track.</p>
+            <p class="news-text">Reserve a session before April 30 to receive 10% off any 2-week program track.</p>
           </div>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">March 2026</span>
+          <time datetime="2026-03" class="news-date">March 2026</time>
         </article>
 
         <article class="addon-item">
           <div>
             <h3>New Eco-Glamping Tents Installed</h3>
-            <p style="color: var(--text-muted); font-size: 0.9rem;">Upgraded, weather-resistant accommodations are now available for Wilderness campers.</p>
+            <p class="news-text">Upgraded, weather-resistant accommodations are now available for Wilderness campers.</p>
           </div>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">February 2026</span>
+          <time datetime="2026-02" class="news-date">February 2026</time>
         </article>
       </div>
     </section>
