@@ -64,3 +64,49 @@
     aspect-ratio: 16 / 10; 
   }
 }
+
+/* ==========================================
+   STUDENT 3 STYLES: MEDIA QUERIES
+   ========================================== */
+
+/* Breakpoint 1: Tablets and Small Desktops (768px / 48rem) */
+@media (min-width: 48rem) {
+  
+  /* Timeline reflow */
+  .timeline-block {
+    /* Switches from stacked to side-by-side layout */
+    flex-direction: row; 
+    /* Vertically centers the text alongside the image */
+    align-items: center; 
+    /* Increases gap and padding for larger screens */
+    gap: 2.5rem; 
+    padding: 2rem;
+  }
+  
+  .timeline-block.reverse {
+    /* Alternates the layout order (Image right, Text left) for visual interest */
+    flex-direction: row-reverse; 
+  }
+
+  /* Values reflow */
+  .values-flex {
+    /* Places the 3 value cards in a single row */
+    flex-direction: row; 
+  }
+
+  /* Team reflow */
+  .team-grid {
+    /* Switches to a 2-column grid. minmax(0, 1fr) prevents blowout from long words */
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+  }
+}
+
+/* Breakpoint 2: Large Desktops (1024px / 64rem) */
+@media (min-width: 64rem) {
+  
+  /* Team Grid Reflow */
+  .team-grid {
+    /* Expands to a 4-column grid for widescreen layouts to fit the 4 team members on one line */
+    grid-template-columns: repeat(4, minmax(0, 1fr)); 
+  }
+}
