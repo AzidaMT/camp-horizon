@@ -756,3 +756,28 @@ textarea:focus-visible {
   font-size: 0.88rem;
   color: var(--text-muted);
 }
+.program-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-btn {
+  display: inline-block;
+  margin-top: 0.8rem;
+  padding: 0.4rem 1rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 6px;
+  text-align: center;
+  align-self: flex-start;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.card-btn:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-1px);
+}
