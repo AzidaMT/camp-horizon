@@ -25,15 +25,28 @@
       <h1>Summer 2026 Sessions & Programs</h1>
       <p>Explore our seasonal programs tailored for campers aged 8 to 16.</p>
     </section>
+
     <section class="program-image-section">
-  <!-- Student 2 will add: Grid catalogue of sessions, pricing table, daily schedule -->
-      <img  src="img/camp.png" alt="Camp Horizon outdoor activities"
-    class="program-image"
-  >
-</section>
-    <section id = "programs"> 
+      <img src="img/camp.png" alt="Camp Horizon outdoor activities" class="program-image">
+    </section>
+
+    <section id="programs"> 
       <h2>Our Programs</h2>
-      <p>Choose a program that fits your child interests and schedule. </p>
+      <p>Choose a program that fits your child interests and schedule.</p>
+
+      <!-- TASK 3 -->
+      <div class="search-section">
+        <label for="programSearch" class="search-label">Search Camp Programs:</label>
+        <input type="text" 
+          id="programSearch" 
+          class="search-input" 
+          placeholder="Type to filter programs (e.g., Sports, IT)..."
+        >
+        <p id="searchResultsCount" class="results-count"></p>
+        <div id="noResultsMessage" class="no-results-alert hidden">
+          No matching programs found.
+        </div>
+      </div>
 
       <div class="program-grid">
         <article class="program-card">
@@ -41,9 +54,9 @@
           <p>Art, design, and creativity workshops.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
-    </div>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+          </div>
         </article>
 
         <article class="program-card">
@@ -51,8 +64,8 @@
           <p>Team sports, fitness, and outdoor activities.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
@@ -61,8 +74,8 @@
           <p>Programming, web development, and technology workshops.</p>
           <span>10-17 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
@@ -71,8 +84,8 @@
           <p>Exploration of scientific concepts and experiments.</p>
           <span>9-16 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
@@ -81,8 +94,8 @@
           <p>Music, singing, and instrument lessons.</p>
           <span>8-16 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
@@ -91,58 +104,71 @@
           <p>Outdoor activities and team challenges.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-      <a href="contact.html#regForm" class="btn-book">Book Now</a>
-      <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#regForm" class="btn-book">Book Now</a>
+            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
           </div>
         </article>
       </div>
     </section>
-<!-- In this section i write about schedule prices and -->
+
+<!-- TASK 4:-->
+    <section class="favourites-section">
+      <h2>My Saved Programs (<span id="favCount">0</span>)</h2>
+      
+      <form id="addFavForm" class="fav-form">
+        <input type="text" 
+          id="favInput" 
+          class="fav-input" 
+          placeholder="Add custom program or note..." 
+          required
+        >
+        <button type="submit" class="btn-add">Add</button>
+      </form>
+
+      <ul id="favList" class="fav-list"></ul>
+    </section>
+
     <section id="schedule-table"> 
       <h2>Camp Schedule and Prices</h2>
       <p>Check out our detailed schedule and pricing information for each session.</p>
 
       <div class="table-wrapper">
-      <table class="schedule-table">
-        <thead>
-          <tr>
-            <th>Session</th>
-            <th>Program</th>
-            <th>Date</th>
-            <th>Price</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr>
-            <td>Session 1</td>
-            <td>Wilderness Explorer</td>
-            <td>June 10 - June 24</td>
-            <td>$450</td>
-          </tr>
-
-          <tr>
-            <td>Session 2</td>
-            <td>Water Sports and Aquatics</td>
-            <td>July 01 - July 15</td>
-            <td>$300</td>
-          </tr>
-
-          <tr>
-            <td>Session 3</td>
-            <td>Arts & Creative Media</td>
-            <td>July 20 - August 03</td>
-            <td>$250</td>
-          </tr>
-
-          <tr>
-            <td>Session 4</td>
-            <td>Junior Leadership Camp</td>
-            <td>August 08 – August 22</td>
-            <td>$400</td>
-          </tr>
-        </tbody>
-      </table>
+        <table class="schedule-table">
+          <thead>
+            <tr>
+              <th>Session</th>
+              <th>Program</th>
+              <th>Date</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Session 1</td>
+              <td>Wilderness Explorer</td>
+              <td>June 10 - June 24</td>
+              <td>$450</td>
+            </tr>
+            <tr>
+              <td>Session 2</td>
+              <td>Water Sports and Aquatics</td>
+              <td>July 01 - July 15</td>
+              <td>$300</td>
+            </tr>
+            <tr>
+              <td>Session 3</td>
+              <td>Arts & Creative Media</td>
+              <td>July 20 - August 03</td>
+              <td>$250</td>
+            </tr>
+            <tr>
+              <td>Session 4</td>
+              <td>Junior Leadership Camp</td>
+              <td>August 08 – August 22</td>
+              <td>$400</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
 
       <h2>Additional Add-ons</h2>
@@ -152,12 +178,10 @@
           <h3>City Shuttle Round-Trip</h3>
           <span>$40</span>
         </article>
-
         <article class="addon-item">
           <h3>Premium Camping Equipment Rental</h3>
           <span>$65</span>
         </article>
-
         <article class="addon-item">
           <h3>Personalized Camp Photo & Video Pack</h3>
           <span>$30</span>
@@ -184,5 +208,6 @@
     <p>&copy; 2026 Camp Horizon Summer Experience. All rights reserved.</p>
   </footer>
 
+  <script src="js/validation.js"></script>
 </body>
 </html>
