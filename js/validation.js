@@ -69,6 +69,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+
+  const userNameInput = document.getElementById("userNameInput");
+  const greetButton = document.getElementById("greetBtn");
+  const welcomeOutput = document.querySelector("#welcomeOutput");
+
+  if (greetButton && userNameInput && welcomeOutput) {
+    greetButton.addEventListener("click", () => {
+      const trimmedValue = userNameInput.value.trim();
+
+      if (trimmedValue === "") {
+        welcomeOutput.textContent = "Please enter a valid name! Field cannot be empty.";
+        welcomeOutput.style.color = "#dc3545"; 
+      } else {
+        welcomeOutput.textContent = `Welcome to Camp Horizon, ${trimmedValue}! We are glad to see you.`;
+        welcomeOutput.style.color = "#28a745"; 
+      }
+    });
+  }
+
 //TASK 3
 const searchInput = document.querySelector("#programSearch");
   const resultsCount = document.querySelector("#searchResultsCount");
