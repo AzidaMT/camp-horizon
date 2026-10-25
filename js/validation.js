@@ -199,3 +199,21 @@ themeToggleBtn.addEventListener("click", () => {
     themeToggleBtn.textContent = "Switch to Dark Theme";
   }
 });
+
+const faqButtons = document.querySelectorAll('.faq-question');
+
+if (faqButtons.length > 0) {
+  faqButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', !isExpanded);
+
+      const controlsId = button.getAttribute('aria-controls');
+      const answer = document.getElementById(controlsId);
+
+      if (answer) {
+        answer.classList.toggle('hidden');
+      }
+    });
+  });
+}
