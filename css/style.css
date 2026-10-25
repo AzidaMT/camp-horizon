@@ -365,34 +365,41 @@ textarea:focus-visible {
   border-bottom: none;
 }
 
-.faq-item summary {
+.faq-question {
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
   font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   color: var(--text-main);
-  user-select: none;
-  list-style: none;
+  padding: 0.2rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.faq-item summary::after {
-  content: " +";
-  float: right;
+.faq-question::after {
+  content: "+";
   color: var(--primary-color);
   font-weight: bold;
+  font-size: 1.2rem;
 }
 
-.faq-item[open] summary::after {
-  content: " −";
+.faq-question[aria-expanded="true"]::after {
+  content: "−";
 }
 
-.faq-item p {
+.faq-answer {
   margin-top: 0.5rem;
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.5;
+}
+
+.faq-answer.hidden {
+  display: none !important;
 }
 
 .program-image-section {
