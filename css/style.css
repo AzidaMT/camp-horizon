@@ -956,3 +956,52 @@ textarea:focus-visible {
 .btn-remove:hover {
   background-color: #dc2626;
 }
+
+body.dark-theme {
+  --primary-color: #38bdf8;
+  --primary-dark: #0ea5e9;
+  --accent-color: #fbbf24;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --bg-page: #0f172a;
+  --bg-card: #1e293b;
+  --border-color: #334155;
+}
+
+body.dark-theme .site-header {
+  background-color: var(--bg-card);
+}
+
+body.dark-theme .schedule-table th {
+  background-color: var(--primary-dark);
+  color: #0f172a;
+}
+
+body.dark-theme .schedule-table tr:nth-child(even) {
+  background-color: #131c2e;
+}
+
+body.dark-theme .faq-item p,
+body.dark-theme .news-text,
+body.dark-theme .news-date,
+body.dark-theme .page-intro p,
+body.dark-theme .section-subtitle,
+body.dark-theme .value-card p {
+  color: var(--text-muted);
+}
+
+.theme-toggle-btn {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.theme-toggle-btn:hover {
+  background-color: var(--primary-dark);
+}

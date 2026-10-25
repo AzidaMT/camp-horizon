@@ -169,3 +169,33 @@ const favForm = document.querySelector("#addFavForm");
       favInput.value = "";
     });
   }
+
+const themeToggleBtn = document.createElement("button");
+themeToggleBtn.type = "button";
+themeToggleBtn.className = "theme-toggle-btn";
+
+const savedTheme = localStorage.getItem("campTheme");
+if (savedTheme === "dark") {
+  document.body.classList.add("dark-theme");
+  themeToggleBtn.textContent = "Switch to Light Theme";
+} else {
+  themeToggleBtn.textContent = "Switch to Dark Theme";
+}
+
+const navUl = document.querySelector(".main-nav ul");
+if (navUl) {
+  const li = document.createElement("li");
+  li.appendChild(themeToggleBtn);
+  navUl.appendChild(li);
+}
+
+themeToggleBtn.addEventListener("click", () => {
+  document.body.classList.toggle("dark-theme");
+  if (document.body.classList.contains("dark-theme")) {
+    localStorage.setItem("campTheme", "dark");
+    themeToggleBtn.textContent = "Switch to Light Theme";
+  } else {
+    localStorage.setItem("campTheme", "light");
+    themeToggleBtn.textContent = "Switch to Dark Theme";
+  }
+});
