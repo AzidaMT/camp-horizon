@@ -82,26 +82,32 @@ $(document).ready(function () {
     $answer.stop(true, true).slideToggle(250);
   });
 
-  // 2.2 Fade-эффект подписки на about.html
+// 2.2 Fade-эффект подписки на about.html
   $(document).on("click", "#newsletterBtn", function (e) {
     e.preventDefault();
-    const emailVal = $.trim($("#newsletterEmail").val());
+    const rawVal = $("#newsletterEmail").val() || "";
+    const emailVal = $.trim(rawVal);
     const $status = $("#newsletterStatus");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (emailRegex.test(emailVal)) {
+    // Надежная проверка email без сбоев из-за спецсимволов или пробелов
+    const hasAt = emailVal.indexOf("@") > 0;
+    const hasDot = emailVal.lastIndexOf(".") > emailVal.indexOf("@") + 1;
+    const isValidEmail = hasAt && hasDot && emailVal.length >= 6;
+
+    if (isValidEmail) {
       $status
         .stop(true, true)
-        .css("color", "#28a745")
+        .css({ "color": "#28a745", "display": "none" })
         .text("Subscribed successfully! Welcome to Camp Horizon newsletter.")
         .fadeIn(300)
         .delay(3000)
         .fadeOut(400);
+
       $("#newsletterEmail").val("");
     } else {
       $status
         .stop(true, true)
-        .css("color", "#dc3545")
+        .css({ "color": "#dc3545", "display": "none" })
         .text("Please enter a valid email address.")
         .fadeIn(300)
         .delay(3000)
