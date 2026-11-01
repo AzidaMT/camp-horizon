@@ -148,6 +148,57 @@
       </div>
       <p id="newsletterStatus" style="display: none; margin-top: 10px; font-weight: 600; color: #28a745;"></p>
     </section>
+    <!-- ==========================================
+         TASK 2: ANIMATED FAQ ACCORDION & FADE EFFECT
+         ========================================== -->
+    <section class="page-container" style="margin-top: 3rem; margin-bottom: 3rem;">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know about our outdoor and tech sessions.</p>
+
+      <div class="faq-container" style="max-width: 800px; margin: 0 auto;">
+        
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            What is the counselor-to-camper ratio?
+          </button>
+          <div class="faq-answer" style="display: none;">
+            <p>We maintain a strict 1:6 ratio across all age brackets to ensure complete safety and personalized mentorship during every session.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            What medical facilities are available on-site?
+          </button>
+          <div class="faq-answer" style="display: none;">
+            <p>Our camp has a 24/7 medical station staffed with a certified pediatrician and a fully equipped first-aid emergency post.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-question" aria-expanded="false">
+            Are dietary restrictions and allergies accommodated?
+          </button>
+          <div class="faq-answer" style="display: none;">
+            <p>Yes, all three hot daily meals are prepared on-site, with full accommodation for vegetarian, gluten-free, and halal dietary needs.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Блок подписки с Fade-эффектом -->
+      <div style="text-align: center; margin-top: 3.5rem; padding: 2rem; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); max-width: 650px; margin-left: auto; margin-right: auto;">
+        <h3 style="margin-bottom: 0.5rem; color: var(--text-main);">Stay Updated with Camp Horizon</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.25rem;">Get early bird registration alerts and seasonal news directly to your inbox.</p>
+        
+        <div style="display: flex; justify-content: center; gap: 8px; max-width: 450px; margin: 0 auto;">
+          <input type="email" id="newsletterEmail" class="form-control" placeholder="Enter your email (e.g. name@camp.com)" style="padding: 10px 14px; border: 1px solid var(--border-color); border-radius: 6px; flex: 1;">
+          <button type="button" id="newsletterBtn" class="submit-btn" style="padding: 10px 20px; cursor: pointer;">Subscribe</button>
+        </div>
+        
+        <p id="newsletterStatus" style="display: none; margin-top: 12px; font-weight: 600;"></p>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer">
