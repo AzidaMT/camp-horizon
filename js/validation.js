@@ -1,219 +1,299 @@
-document.addEventListener('DOMContentLoaded', () => {
-  
-  const contactForm = document.getElementById('contactForm');
-  const contactSuccess = document.getElementById('contactSuccess');
+/* ==========================================================================
+   Assignment #6: jQuery Interactions (Camp Horizon)
+   ========================================================================== */
 
-  if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+$(document).ready(function () {
+  console.log("Camp Horizon: jQuery loaded successfully.");
 
-      if (contactForm.checkValidity()) {
-        if (contactSuccess) contactSuccess.classList.remove('d-none');
-        contactForm.reset();
-        contactForm.classList.remove('was-validated');
-      } else {
-        if (contactSuccess) contactSuccess.classList.add('d-none');
-        contactForm.classList.add('was-validated');
-      }
-    });
+  /* --------------------------------------------------------------------------
+     TASK 1. Personalized Greeting & Theme Toggle (index.html)
+     jQuery Methods: .on(), .val(), $.trim(), .text(), .toggleClass(), .attr()
+     -------------------------------------------------------------------------- */
+  const $nameInput = $("#userNameInput");
+  const $greetBtn = $("#greetBtn");
+  const $welcomeOutput = $("#welcomeOutput");
+
+  $greetBtn.on("click", function () {
+    const rawVal = $nameInput.val();
+    const cleanName = $.trim(rawVal);
+
+    if (cleanName === "") {
+      $welcomeOutput
+        .text("Please enter a valid name! Field cannot be empty.")
+        .css("color", "#dc3545");
+    } else {
+      // Безопасная вставка через .text() исключает XSS
+      $welcomeOutput
+        .text("Welcome to Camp Horizon, " + cleanName + "! We are glad to see you.")
+        .css("color", "#28a745");
+    }
+  });
+
+  // Восстановление темы из localStorage
+  const savedTheme = localStorage.getItem("campTheme");
+  if (savedTheme === "dark") {
+    $("body").addClass("dark-theme");
   }
 
-  const regForm = document.getElementById('registrationForm');
-  const regSuccess = document.getElementById('registrationSuccess');
-  const password = document.getElementById('password');
-  const confirmPassword = document.getElementById('confirmPassword');
-  const resetBtn = document.getElementById('resetBtn');
+  // Создание и добавление кнопки смены темы в навигацию
+  const $themeToggleBtn = $("<button></button>")
+    .attr("type", "button")
+    .addClass("theme-toggle-btn")
+    .text($("body").hasClass("dark-theme") ? "Switch to Light Theme" : "Switch to Dark Theme");
 
-  function checkPasswordMatch() {
-    if (confirmPassword && password) {
-      if (confirmPassword.value && password.value !== confirmPassword.value) {
-        confirmPassword.setCustomValidity("Passwords do not match");
+  const $navUl = $(".main-nav ul");
+  if ($navUl.length && $("#themeToggleLi").length === 0) {
+    const $li = $("<li></li>").attr("id", "themeToggleLi").append($themeToggleBtn);
+    $navUl.append($li);
+  }
+
+  $themeToggleBtn.on("click", function () {
+    $("body").toggleClass("dark-theme");
+    const isDark = $("body").hasClass("dark-theme");
+
+    if (isDark) {
+      localStorage.setItem("campTheme", "dark");
+      $(this).text("Switch to Light Theme");
+    } else {
+      localStorage.setItem("campTheme", "light");
+      $(this).text("Switch to Dark Theme");
+    }
+  });
+
+
+  /* --------------------------------------------------------------------------
+     TASK 2. Animated FAQ Accordion (about.html & contact.html)
+     jQuery Methods: .on(), .slideToggle(), .slideUp(), .stop(), .attr()
+     -------------------------------------------------------------------------- */
+  $(".faq-question").on("click", function () {
+    const $button = $(this);
+    const targetId = $button.attr("aria-controls");
+    const $answer = targetId ? $("#" + targetId) : $button.next(".faq-answer");
+    const isExpanded = $button.attr("aria-expanded") === "true";
+
+    // Закрываем остальные открытые вопросы, предотвращая очередь анимации
+    $(".faq-question").not($button).attr("aria-expanded", "false");
+    $(".faq-answer").not($answer).stop(true, true).slideUp(250);
+
+    // Переключаем выбранный вопрос
+    $button.attr("aria-expanded", !isExpanded);
+    $answer.stop(true, true).slideToggle(250);
+  });
+
+
+  /* --------------------------------------------------------------------------
+     TASK 3. Combined Filter & Live Search (services.html)
+     jQuery Methods: .on('input'), .each(), .text(), .toLowerCase(), .show(), .hide()
+     -------------------------------------------------------------------------- */
+  const $programSearch = $("#programSearch");
+  const $resultsCount = $("#searchResultsCount");
+  const $noResultsMsg = $("#noResultsMessage");
+  const $programCards = $(".program-card");
+
+  function filterCampPrograms() {
+    const searchText = $.trim($programSearch.val()).toLowerCase();
+    const activeCategory = $(".category-filter-btn.active").data("category") || "all";
+    let visibleCount = 0;
+
+    $programCards.each(function () {
+      const $card = $(this);
+      const title = $card.find("h3").text().toLowerCase();
+      const desc = $card.find("p").text().toLowerCase();
+      const cardCategory = $card.data("category") || "all";
+
+      const matchesSearch = (title.indexOf(searchText) !== -1 || desc.indexOf(searchText) !== -1);
+      const matchesCategory = (activeCategory === "all" || cardCategory === activeCategory);
+
+      if (matchesSearch && matchesCategory) {
+        $card.show();
+        visibleCount++;
       } else {
-        confirmPassword.setCustomValidity("");
+        $card.hide();
       }
+    });
+
+    if (searchText !== "" || activeCategory !== "all") {
+      $resultsCount.text("Showing " + visibleCount + " of " + $programCards.length + " programs");
+    } else {
+      $resultsCount.text("");
+    }
+
+    if (visibleCount === 0) {
+      $noResultsMsg.removeClass("hidden").show();
+    } else {
+      $noResultsMsg.addClass("hidden").hide();
     }
   }
 
-  if (password && confirmPassword) {
-    password.addEventListener('input', checkPasswordMatch);
-    confirmPassword.addEventListener('input', checkPasswordMatch);
-  }
+  if ($programSearch.length) {
+    $programSearch.on("input", filterCampPrograms);
 
-  if (regForm) {
-    regForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      event.stopPropagation();
+    $(".category-filter-btn").on("click", function () {
+      $(".category-filter-btn").removeClass("active");
+      $(this).addClass("active");
+      filterCampPrograms();
+    });
 
-      checkPasswordMatch();
-
-      if (regForm.checkValidity()) {
-        if (regSuccess) regSuccess.classList.remove('d-none');
-        regForm.reset();
-        regForm.classList.remove('was-validated');
-      } else {
-        if (regSuccess) regSuccess.classList.add('d-none');
-        regForm.classList.add('was-validated');
-      }
+    $("#clearFiltersBtn").on("click", function () {
+      $programSearch.val("");
+      $(".category-filter-btn").removeClass("active");
+      $('.category-filter-btn[data-category="all"]').addClass("active");
+      filterCampPrograms();
     });
   }
 
 
-  if (resetBtn && regForm) {
-    resetBtn.addEventListener('click', () => {
-      regForm.reset();
-      regForm.classList.remove('was-validated');
-      if (confirmPassword) confirmPassword.setCustomValidity("");
-      if (regSuccess) regSuccess.classList.add('d-none');
-    });
-  }
-});
+  /* --------------------------------------------------------------------------
+     TASK 4. Dynamic Content Management with Delegated Events (services.html)
+     jQuery Methods: .on('submit'), .append(), .remove(), delegated .on('click')
+     -------------------------------------------------------------------------- */
+  const $favForm = $("#addFavForm");
+  const $favInput = $("#favInput");
+  const $favList = $("#favList");
+  const $favCount = $("#favCount");
+  const $favEmptyState = $("#favEmptyState");
 
-
-  const userNameInput = document.getElementById("userNameInput");
-  const greetButton = document.getElementById("greetBtn");
-  const welcomeOutput = document.querySelector("#welcomeOutput");
-
-  if (greetButton && userNameInput && welcomeOutput) {
-    greetButton.addEventListener("click", () => {
-      const trimmedValue = userNameInput.value.trim();
-
-      if (trimmedValue === "") {
-        welcomeOutput.textContent = "Please enter a valid name! Field cannot be empty.";
-        welcomeOutput.style.color = "#dc3545"; 
-      } else {
-        welcomeOutput.textContent = `Welcome to Camp Horizon, ${trimmedValue}! We are glad to see you.`;
-        welcomeOutput.style.color = "#28a745"; 
-      }
-    });
+  function syncFavCount() {
+    const count = $favList.find(".fav-item").length;
+    $favCount.text(count);
+    if (count === 0) {
+      $favEmptyState.show();
+    } else {
+      $favEmptyState.hide();
+    }
   }
 
-//TASK 3
-const searchInput = document.querySelector("#programSearch");
-  const resultsCount = document.querySelector("#searchResultsCount");
-  const noResultsMsg = document.querySelector("#noResultsMessage");
-  const programCards = document.querySelectorAll(".program-card");
+  if ($favForm.length) {
+    $favForm.on("submit", function (e) {
+      e.preventDefault();
+      const itemText = $.trim($favInput.val());
 
-  if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      const filterText = searchInput.value.toLowerCase().trim();
-      let matchCount = 0;
-
-      programCards.forEach((card) => {
-        const cardText = card.textContent.toLowerCase();
-
-        if (cardText.includes(filterText)) {
-          card.style.display = ""; 
-          matchCount++;
-        } else {
-          card.style.display = "none"; 
-        }
-      });
-
-      if (resultsCount) {
-        if (filterText !== "") {
-          resultsCount.textContent = `Showing ${matchCount} of ${programCards.length} programs`;
-        } else {
-          resultsCount.textContent = "";
-        }
-      }
-
-      if (noResultsMsg) {
-        if (matchCount === 0 && filterText !== "") {
-          noResultsMsg.classList.remove("hidden");
-        } else {
-          noResultsMsg.classList.add("hidden");
-        }
-      }
-    });
-  }
-
-  //TASK 4
-const favForm = document.querySelector("#addFavForm");
-  const favInput = document.querySelector("#favInput");
-  const favList = document.querySelector("#favList");
-  const favCount = document.querySelector("#favCount");
-
-  let itemCount = 0;
-
-  if (favForm) {
-    favForm.addEventListener("submit", (event) => {
-      event.preventDefault(); 
-
-      const itemText = favInput.value.trim();
       if (itemText === "") return;
 
-      const li = document.createElement("li");
-      li.className = "fav-item";
+      const $li = $("<li></li>").addClass("fav-item");
+      const $span = $("<span></span>").text(itemText);
+      const $btn = $("<button></button>")
+        .attr("type", "button")
+        .addClass("btn-remove")
+        .text("Remove");
 
-      const span = document.createElement("span");
-      span.textContent = itemText;
+      $li.append($span).append($btn);
+      $favList.append($li);
 
-      const removeBtn = document.createElement("button");
-      removeBtn.type = "button";
-      removeBtn.className = "btn-remove";
-      removeBtn.textContent = "Remove";
+      $favInput.val("").focus();
+      syncFavCount();
+    });
 
-      removeBtn.addEventListener("click", () => {
-        li.remove();
-        itemCount--;
-        if (favCount) favCount.textContent = itemCount;
-      });
-
-      li.appendChild(span);
-      li.appendChild(removeBtn);
-      if (favList) favList.appendChild(li);
-
-      itemCount++;
-      if (favCount) favCount.textContent = itemCount;
-      favInput.value = "";
+    // Делегированное удаление для элементов списка
+    $favList.on("click", ".btn-remove", function () {
+      $(this).closest(".fav-item").remove();
+      syncFavCount();
     });
   }
 
-const themeToggleBtn = document.createElement("button");
-themeToggleBtn.type = "button";
-themeToggleBtn.className = "theme-toggle-btn";
 
-const savedTheme = localStorage.getItem("campTheme");
-if (savedTheme === "dark") {
-  document.body.classList.add("dark-theme");
-  themeToggleBtn.textContent = "Switch to Light Theme";
-} else {
-  themeToggleBtn.textContent = "Switch to Dark Theme";
-}
+  /* --------------------------------------------------------------------------
+     TASK 5. Form Validation & Simulation Feedback (contact.html)
+     jQuery Methods: .on('submit'), .val(), $.trim(), .addClass(), .removeClass()
+     -------------------------------------------------------------------------- */
+  const $contactForm = $("#contactForm");
+  const $contactSuccess = $("#contactSuccess");
 
-const navUl = document.querySelector(".main-nav ul");
-if (navUl) {
-  const li = document.createElement("li");
-  li.appendChild(themeToggleBtn);
-  navUl.appendChild(li);
-}
+  if ($contactForm.length) {
+    $contactForm.on("submit", function (e) {
+      e.preventDefault();
+      let isValid = true;
 
-themeToggleBtn.addEventListener("click", () => {
-  document.body.classList.toggle("dark-theme");
-  if (document.body.classList.contains("dark-theme")) {
-    localStorage.setItem("campTheme", "dark");
-    themeToggleBtn.textContent = "Switch to Light Theme";
-  } else {
-    localStorage.setItem("campTheme", "light");
-    themeToggleBtn.textContent = "Switch to Dark Theme";
-  }
-});
+      const name = $.trim($("#contactName").val());
+      const email = $.trim($("#contactEmail").val());
+      const message = $.trim($("#contactMessage").val());
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const faqButtons = document.querySelectorAll('.faq-question');
+      // Сброс предыдущих ошибок
+      $contactForm.find(".form-control").removeClass("is-invalid");
 
-if (faqButtons.length > 0) {
-  faqButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      const isExpanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', !isExpanded);
+      if (name.length < 2) {
+        isValid = false;
+        $("#contactName").addClass("is-invalid");
+      }
 
-      const controlsId = button.getAttribute('aria-controls');
-      const answer = document.getElementById(controlsId);
+      if (!emailRegex.test(email)) {
+        isValid = false;
+        $("#contactEmail").addClass("is-invalid");
+      }
 
-      if (answer) {
-        answer.classList.toggle('hidden');
+      if (message.length < 10 || message.length > 500) {
+        isValid = false;
+        $("#contactMessage").addClass("is-invalid");
+      }
+
+      if (isValid) {
+        $contactSuccess
+          .stop(true, true)
+          .removeClass("d-none")
+          .html("<strong>Demonstration Successful:</strong> Thank you! Your enquiry has been verified via jQuery. (Notice: Frontend simulation only; no real message was transmitted).")
+          .fadeIn(300);
+
+        $contactForm[0].reset();
+      } else {
+        $contactSuccess.addClass("d-none");
       }
     });
-  });
-}
+
+    // Очистка красных рамок при начале исправления поля
+    $contactForm.on("input", ".form-control", function () {
+      $(this).removeClass("is-invalid");
+    });
+  }
+
+  // 5.2. Валидация второй формы (Registration Form)
+  const $regForm = $("#registrationForm");
+  const $regSuccess = $("#registrationSuccess");
+
+  if ($regForm.length) {
+    $regForm.on("submit", function (e) {
+      e.preventDefault();
+      let isValid = true;
+
+      const fName = $.trim($("#firstName").val());
+      const lName = $.trim($("#lastName").val());
+      const email = $.trim($("#regEmail").val());
+      const pwd = $("#password").val();
+      const confirmPwd = $("#confirmPassword").val();
+      const country = $("#countrySelect").val();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      $regForm.find(".form-control, .form-select").removeClass("is-invalid");
+
+      if (fName.length < 2) { isValid = false; $("#firstName").addClass("is-invalid"); }
+      if (lName.length < 2) { isValid = false; $("#lastName").addClass("is-invalid"); }
+      if (!emailRegex.test(email)) { isValid = false; $("#regEmail").addClass("is-invalid"); }
+      if (pwd.length < 8) { isValid = false; $("#password").addClass("is-invalid"); }
+      if (confirmPwd.length < 8 || confirmPwd !== pwd) { isValid = false; $("#confirmPassword").addClass("is-invalid"); }
+      if (!country) { isValid = false; $("#countrySelect").addClass("is-invalid"); }
+
+      if (isValid) {
+        $regSuccess
+          .stop(true, true)
+          .removeClass("d-none")
+          .html("<strong>Registration Simulated:</strong> Camper registered successfully in demo mode. No payment charged.")
+          .fadeIn(300);
+
+        $regForm[0].reset();
+      } else {
+        $regSuccess.addClass("d-none");
+      }
+    });
+
+    $("#resetBtn").on("click", function () {
+      $regForm[0].reset();
+      $regForm.find(".form-control, .form-select").removeClass("is-invalid");
+      $regSuccess.addClass("d-none");
+    });
+
+    $regForm.on("input change", ".form-control, .form-select", function () {
+      $(this).removeClass("is-invalid");
+    });
+  }
+
+});
