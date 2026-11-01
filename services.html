@@ -30,11 +30,11 @@
       <img src="img/camp.png" alt="Camp Horizon outdoor activities" class="program-image">
     </section>
 
-    <section id="programs"> 
+  <section id="programs"> 
       <h2>Our Programs</h2>
       <p>Choose a program that fits your child interests and schedule.</p>
 
-      <!-- TASK 3 -->
+      <!-- TASK 3: Поиск с кнопками категорий -->
       <div class="search-section">
         <label for="programSearch" class="search-label">Search Camp Programs:</label>
         <input type="text" 
@@ -42,6 +42,14 @@
           class="search-input" 
           placeholder="Type to filter programs (e.g., Sports, IT)..."
         >
+        <!-- Кнопки категорий -->
+        <div class="category-buttons" style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
+          <button type="button" class="category-filter-btn active" data-category="all">All</button>
+          <button type="button" class="category-filter-btn" data-category="creative">Creative & Arts</button>
+          <button type="button" class="category-filter-btn" data-category="sports">Sports</button>
+          <button type="button" class="category-filter-btn" data-category="stem">IT & Science</button>
+          <button type="button" id="clearFiltersBtn" class="btn-clear" style="padding: 6px 14px; border: 1px solid #cbd5e1; background: #fff; border-radius: 20px; cursor: pointer;">Clear Filters</button>
+        </div>
         <p id="searchResultsCount" class="results-count"></p>
         <div id="noResultsMessage" class="no-results-alert hidden">
           No matching programs found.
@@ -49,69 +57,69 @@
       </div>
 
       <div class="program-grid">
-        <article class="program-card">
+        <article class="program-card" data-category="creative">
           <h3>Creative camp</h3>
           <p>Art, design, and creativity workshops.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
-        <article class="program-card">
+        <article class="program-card" data-category="sports">
           <h3>Sports camp</h3>
           <p>Team sports, fitness, and outdoor activities.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
-        <article class="program-card">
+        <article class="program-card" data-category="stem">
           <h3>IT camp</h3>
           <p>Programming, web development, and technology workshops.</p>
           <span>10-17 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
-        <article class="program-card">
+        <article class="program-card" data-category="stem">
           <h3>Science camp</h3>
           <p>Exploration of scientific concepts and experiments.</p>
           <span>9-16 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
-        <article class="program-card">
+        <article class="program-card" data-category="creative">
           <h3>Music camp</h3>
           <p>Music, singing, and instrument lessons.</p>
           <span>8-16 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
 
-        <article class="program-card">
+        <article class="program-card" data-category="sports">
           <h3>Adventure camp</h3>
           <p>Outdoor activities and team challenges.</p>
           <span>7-17 years</span>
           <div class="card-actions">
-            <a href="contact.html#regForm" class="btn-book">Book Now</a>
-            <a href="contact.html#contactForm" class="btn-ask">Ask Question</a>
+            <a href="contact.html#registration" class="btn-book">Book Now</a>
+            <a href="contact.html#contact-us" class="btn-ask">Ask Question</a>
           </div>
         </article>
       </div>
     </section>
 
-<!-- TASK 4:-->
+    <!-- TASK 4: Dynamic Content -->
     <section class="favourites-section">
       <h2>My Saved Programs (<span id="favCount">0</span>)</h2>
       
@@ -124,6 +132,11 @@
         >
         <button type="submit" class="btn-add">Add</button>
       </form>
+
+      <!-- Сообщение при пустом списке по критерию Task 4 -->
+      <p id="favEmptyState" style="color: var(--text-muted); font-size: 0.95rem; margin-top: 10px;">
+        Your saved programs list is currently empty. Add your preferred tracks above!
+      </p>
 
       <ul id="favList" class="fav-list"></ul>
     </section>
