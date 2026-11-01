@@ -1,5 +1,6 @@
 /* ==========================================================================
-   Assignment #6: jQuery Interactions (Camp Horizon)
+   Assignment #6: Consolidated jQuery Core (Camp Horizon)
+   Covers Tasks 1 to 5 with backward compatibility
    ========================================================================== */
 
 $(document).ready(function () {
@@ -7,7 +8,7 @@ $(document).ready(function () {
 
   /* --------------------------------------------------------------------------
      TASK 1. Personalized Greeting & Theme Toggle (index.html)
-     jQuery Methods: .on(), .val(), $.trim(), .text(), .toggleClass(), .attr()
+     jQuery Methods: .on(), .val(), $.trim(), .text(), .css(), .toggleClass()
      -------------------------------------------------------------------------- */
   const $nameInput = $("#userNameInput");
   const $greetBtn = $("#greetBtn");
@@ -22,20 +23,20 @@ $(document).ready(function () {
         .text("Please enter a valid name! Field cannot be empty.")
         .css("color", "#dc3545");
     } else {
-      // Безопасная вставка через .text() исключает XSS
+      // Исключаем XSS через метод .text()
       $welcomeOutput
         .text("Welcome to Camp Horizon, " + cleanName + "! We are glad to see you.")
         .css("color", "#28a745");
     }
   });
 
-  // Восстановление темы из localStorage
+  // Загрузка темы из памяти браузера
   const savedTheme = localStorage.getItem("campTheme");
   if (savedTheme === "dark") {
     $("body").addClass("dark-theme");
   }
 
-  // Создание и добавление кнопки смены темы в навигацию
+  // Создание кнопки смены темы в панели навигации
   const $themeToggleBtn = $("<button></button>")
     .attr("type", "button")
     .addClass("theme-toggle-btn")
@@ -62,39 +63,55 @@ $(document).ready(function () {
 
 
   /* --------------------------------------------------------------------------
-     TASK 2. Animated FAQ Accordion (about.html & contact.html)
-     jQuery Methods: .on(), .slideToggle(), .slideUp(), .stop(), .attr()
+     TASK 2. Animated FAQ Accordion & Fade Status (contact.html & about.html)
+     jQuery Methods: .on(), .slideToggle(), .slideUp(), .stop(), .fadeIn(), .fadeOut()
      -------------------------------------------------------------------------- */
-  $(".faq-question").on("click", function () {
-  $("#newsletterBtn").on("click", function (e) {
-    e.preventDefault();
-    const emailVal = $.trim($("#newsletterEmail").val());
-    const $msg =$("#newsletterStatus");
-
-    if (emailVal !== "" && emailVal.indexOf("@") !== -1) {
-      $msg.stop(true, true).text("Subscribed successfully!").fadeIn(300).delay(2500).fadeOut(400);
-      $("#newsletterEmail").val("");
-    } else {
-      $msg.stop(true, true).text("Please enter a valid email address.").css("color", "#dc3545").fadeIn(300).delay(2500).fadeOut(400);
-    }
-  });
+  // 2.1 Аккордеон
+  $(document).on("click", ".faq-question", function () {
     const $button = $(this);
     const targetId = $button.attr("aria-controls");
     const $answer = targetId ? $("#" + targetId) : $button.next(".faq-answer");
     const isExpanded = $button.attr("aria-expanded") === "true";
 
-    // Закрываем остальные открытые вопросы, предотвращая очередь анимации
+    // Сворачиваем соседние вопросы и предотвращаем очередь кликов через .stop()
     $(".faq-question").not($button).attr("aria-expanded", "false");
     $(".faq-answer").not($answer).stop(true, true).slideUp(250);
 
-    // Переключаем выбранный вопрос
+    // Раскрываем / скрываем выбранный
     $button.attr("aria-expanded", !isExpanded);
     $answer.stop(true, true).slideToggle(250);
   });
 
+  // 2.2 Fade-эффект подписки на about.html
+  $(document).on("click", "#newsletterBtn", function (e) {
+    e.preventDefault();
+    const emailVal = $.trim($("#newsletterEmail").val());
+    const $status = $("#newsletterStatus");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (emailRegex.test(emailVal)) {
+      $status
+        .stop(true, true)
+        .css("color", "#28a745")
+        .text("Subscribed successfully! Welcome to Camp Horizon newsletter.")
+        .fadeIn(300)
+        .delay(3000)
+        .fadeOut(400);
+      $("#newsletterEmail").val("");
+    } else {
+      $status
+        .stop(true, true)
+        .css("color", "#dc3545")
+        .text("Please enter a valid email address.")
+        .fadeIn(300)
+        .delay(3000)
+        .fadeOut(400);
+    }
+  });
+
 
   /* --------------------------------------------------------------------------
-     TASK 3. Combined Filter & Live Search (services.html)
+     TASK 3. Combined Filtering & Live Search (services.html)
      jQuery Methods: .on('input'), .each(), .text(), .toLowerCase(), .show(), .hide()
      -------------------------------------------------------------------------- */
   const $programSearch = $("#programSearch");
@@ -105,7 +122,7 @@ $(document).ready(function () {
   function filterCampPrograms() {
     const searchText = $.trim($programSearch.val()).toLowerCase();
     const activeCategory = $(".category-filter-btn.active").data("category") || "all";
-    let visibleCount = 0;
+    let matchCount = 0;
 
     $programCards.each(function () {
       const $card = $(this);
@@ -113,24 +130,24 @@ $(document).ready(function () {
       const desc = $card.find("p").text().toLowerCase();
       const cardCategory = $card.data("category") || "all";
 
-      const matchesSearch = (title.indexOf(searchText) !== -1 || desc.indexOf(searchText) !== -1);
+      const matchesQuery = (title.indexOf(searchText) !== -1 || desc.indexOf(searchText) !== -1);
       const matchesCategory = (activeCategory === "all" || cardCategory === activeCategory);
 
-      if (matchesSearch && matchesCategory) {
+      if (matchesQuery && matchesCategory) {
         $card.show();
-        visibleCount++;
+        matchCount++;
       } else {
         $card.hide();
       }
     });
 
     if (searchText !== "" || activeCategory !== "all") {
-      $resultsCount.text("Showing " + visibleCount + " of " + $programCards.length + " programs");
+      $resultsCount.text("Showing " + matchCount + " of " + $programCards.length + " programs");
     } else {
       $resultsCount.text("");
     }
 
-    if (visibleCount === 0) {
+    if (matchCount === 0) {
       $noResultsMsg.removeClass("hidden").show();
     } else {
       $noResultsMsg.addClass("hidden").hide();
@@ -156,7 +173,7 @@ $(document).ready(function () {
 
 
   /* --------------------------------------------------------------------------
-     TASK 4. Dynamic Content Management with Delegated Events (services.html)
+     TASK 4. Dynamic List Management with Delegated Events (services.html)
      jQuery Methods: .on('submit'), .append(), .remove(), delegated .on('click')
      -------------------------------------------------------------------------- */
   const $favForm = $("#addFavForm");
@@ -206,8 +223,9 @@ $(document).ready(function () {
 
   /* --------------------------------------------------------------------------
      TASK 5. Form Validation & Simulation Feedback (contact.html)
-     jQuery Methods: .on('submit'), .val(), $.trim(), .addClass(), .removeClass()
+     jQuery Methods: .on('submit'), .val(), regex, .addClass(), .removeClass(), .slideDown()
      -------------------------------------------------------------------------- */
+  // 5.1. Contact Us Form
   const $contactForm = $("#contactForm");
   const $contactSuccess = $("#contactSuccess");
 
@@ -221,7 +239,6 @@ $(document).ready(function () {
       const message = $.trim($("#contactMessage").val());
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      // Сброс предыдущих ошибок
       $contactForm.find(".form-control").removeClass("is-invalid");
 
       if (name.length < 2) {
@@ -242,23 +259,21 @@ $(document).ready(function () {
       if (isValid) {
         $contactSuccess
           .stop(true, true)
-          .removeClass("d-none")
-          .html("<strong>Demonstration Successful:</strong> Thank you! Your enquiry has been verified via jQuery. (Notice: Frontend simulation only; no real message was transmitted).")
-          .fadeIn(300);
+          .html("<strong>Demonstration Successful:</strong> Thank you! Your contact message has been verified and processed via jQuery. (Notice: Frontend demonstration mode; no real server transmission occurred).")
+          .slideDown(300);
 
         $contactForm[0].reset();
       } else {
-        $contactSuccess.addClass("d-none");
+        $contactSuccess.slideUp(200);
       }
     });
 
-    // Очистка красных рамок при начале исправления поля
     $contactForm.on("input", ".form-control", function () {
       $(this).removeClass("is-invalid");
     });
   }
 
-  // 5.2. Валидация второй формы (Registration Form)
+  // 5.2. Registration Form
   const $regForm = $("#registrationForm");
   const $regSuccess = $("#registrationSuccess");
 
@@ -287,20 +302,19 @@ $(document).ready(function () {
       if (isValid) {
         $regSuccess
           .stop(true, true)
-          .removeClass("d-none")
-          .html("<strong>Registration Simulated:</strong> Camper registered successfully in demo mode. No payment charged.")
-          .fadeIn(300);
+          .html("<strong>Registration Simulated:</strong> All fields are valid! Camper registered in frontend demonstration mode.")
+          .slideDown(300);
 
         $regForm[0].reset();
       } else {
-        $regSuccess.addClass("d-none");
+        $regSuccess.slideUp(200);
       }
     });
 
     $("#resetBtn").on("click", function () {
       $regForm[0].reset();
       $regForm.find(".form-control, .form-select").removeClass("is-invalid");
-      $regSuccess.addClass("d-none");
+      $regSuccess.slideUp(200);
     });
 
     $regForm.on("input change", ".form-control, .form-select", function () {
