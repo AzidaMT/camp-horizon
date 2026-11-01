@@ -114,6 +114,19 @@ $(document).ready(function () {
         .fadeOut(400);
     }
   });
+   // 2.2 Fade notification effect for Newsletter (about.html)
+  $(document).on("click", "#newsletterBtn", function (e) {
+    e.preventDefault();
+    var val = $.trim($("#newsletterEmail").val());
+    var $st = $("#newsletterStatus");
+
+    if (val.indexOf("@") > 0 && val.indexOf(".") > 0) {
+      $st.stop(true, true).css("color", "#28a745").text("Subscribed successfully! Welcome to Camp Horizon.").fadeIn(300).delay(2500).fadeOut(400);
+      $("#newsletterEmail").val("");
+    } else {
+      $st.stop(true, true).css("color", "#dc3545").text("Please enter a valid email address.").fadeIn(300).delay(2500).fadeOut(400);
+    }
+  });
 
 
   /* --------------------------------------------------------------------------
