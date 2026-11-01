@@ -66,6 +66,18 @@ $(document).ready(function () {
      jQuery Methods: .on(), .slideToggle(), .slideUp(), .stop(), .attr()
      -------------------------------------------------------------------------- */
   $(".faq-question").on("click", function () {
+  $("#newsletterBtn").on("click", function (e) {
+    e.preventDefault();
+    const emailVal = $.trim($("#newsletterEmail").val());
+    const $msg =$("#newsletterStatus");
+
+    if (emailVal !== "" && emailVal.indexOf("@") !== -1) {
+      $msg.stop(true, true).text("Subscribed successfully!").fadeIn(300).delay(2500).fadeOut(400);
+      $("#newsletterEmail").val("");
+    } else {
+      $msg.stop(true, true).text("Please enter a valid email address.").css("color", "#dc3545").fadeIn(300).delay(2500).fadeOut(400);
+    }
+  });
     const $button = $(this);
     const targetId = $button.attr("aria-controls");
     const $answer = targetId ? $("#" + targetId) : $button.next(".faq-answer");
