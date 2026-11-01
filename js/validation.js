@@ -82,45 +82,13 @@ $(document).ready(function () {
     $answer.stop(true, true).slideToggle(250);
   });
 
-// 2.2 Fade-эффект подписки на about.html
-  $(document).on("click", "#newsletterBtn", function (e) {
-    e.preventDefault();
-    const rawVal = $("#newsletterEmail").val() || "";
-    const emailVal = $.trim(rawVal);
-    const $status = $("#newsletterStatus");
-
-    // Надежная проверка email без сбоев из-за спецсимволов или пробелов
-    const hasAt = emailVal.indexOf("@") > 0;
-    const hasDot = emailVal.lastIndexOf(".") > emailVal.indexOf("@") + 1;
-    const isValidEmail = hasAt && hasDot && emailVal.length >= 6;
-
-    if (isValidEmail) {
-      $status
-        .stop(true, true)
-        .css({ "color": "#28a745", "display": "none" })
-        .text("Subscribed successfully! Welcome to Camp Horizon newsletter.")
-        .fadeIn(300)
-        .delay(3000)
-        .fadeOut(400);
-
-      $("#newsletterEmail").val("");
-    } else {
-      $status
-        .stop(true, true)
-        .css({ "color": "#dc3545", "display": "none" })
-        .text("Please enter a valid email address.")
-        .fadeIn(300)
-        .delay(3000)
-        .fadeOut(400);
-    }
-  });
- // 2.2 Fade notification effect for Newsletter (about.html)
+  // 2.2 Fade notification effect for Newsletter (about.html)
   $(document).on("click", "#newsletterBtn", function (e) {
     e.preventDefault();
     var emailVal = $.trim($("#newsletterEmail").val() || "");
     var $st = $("#newsletterStatus");
     
-    // Надежное регулярное выражение: принимает любой настоящий email
+    // Надежное регулярное выражение для email
     var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     if (emailPattern.test(emailVal)) {
@@ -143,6 +111,7 @@ $(document).ready(function () {
         .fadeOut(400);
     }
   });
+
 
   /* --------------------------------------------------------------------------
      TASK 3. Combined Filtering & Live Search (services.html)
