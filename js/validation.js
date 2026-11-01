@@ -114,20 +114,35 @@ $(document).ready(function () {
         .fadeOut(400);
     }
   });
-   // 2.2 Fade notification effect for Newsletter (about.html)
+ // 2.2 Fade notification effect for Newsletter (about.html)
   $(document).on("click", "#newsletterBtn", function (e) {
     e.preventDefault();
-    var val = $.trim($("#newsletterEmail").val());
+    var emailVal = $.trim($("#newsletterEmail").val() || "");
     var $st = $("#newsletterStatus");
+    
+    // Надежное регулярное выражение: принимает любой настоящий email
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (val.indexOf("@") > 0 && val.indexOf(".") > 0) {
-      $st.stop(true, true).css("color", "#28a745").text("Subscribed successfully! Welcome to Camp Horizon.").fadeIn(300).delay(2500).fadeOut(400);
+    if (emailPattern.test(emailVal)) {
+      $st
+        .stop(true, true)
+        .css({ "color": "#28a745", "display": "none" })
+        .text("Subscribed successfully! Welcome to Camp Horizon.")
+        .fadeIn(300)
+        .delay(2500)
+        .fadeOut(400);
+
       $("#newsletterEmail").val("");
     } else {
-      $st.stop(true, true).css("color", "#dc3545").text("Please enter a valid email address.").fadeIn(300).delay(2500).fadeOut(400);
+      $st
+        .stop(true, true)
+        .css({ "color": "#dc3545", "display": "none" })
+        .text("Please enter a valid email address.")
+        .fadeIn(300)
+        .delay(2500)
+        .fadeOut(400);
     }
   });
-
 
   /* --------------------------------------------------------------------------
      TASK 3. Combined Filtering & Live Search (services.html)
