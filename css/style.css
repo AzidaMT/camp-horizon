@@ -1012,3 +1012,26 @@ body.dark-theme .value-card p {
 .theme-toggle-btn:hover {
   background-color: var(--primary-dark);
 }
+/* Assignment 6: Category Filter Buttons & Form Errors */
+.category-filter-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--primary-color);
+  background-color: var(--bg-card);
+  color: var(--primary-color);
+  border-radius: 20px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.category-filter-btn:hover,
+.category-filter-btn.active {
+  background-color: var(--primary-color);
+  color: #ffffff;
+}
+
+.is-invalid {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8 !important;
+}
