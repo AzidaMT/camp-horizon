@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login & Sign Up — Camp Horizon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Camp <span>Horizon</span></div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Sessions & Fees</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Gallery & Booking</a></li>
+        <li><a href="login.html" class="active" aria-current="page">Login / Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-container" style="max-width: 600px;">
+    <section class="page-intro">
+      <h1>Camper Portal Authentication</h1>
+      <p>Sign up or log in to manage your camper profile and saved sessions.</p>
+    </section>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+      
+      <div style="display: flex; gap: 1rem; margin-bottom: 2rem; border-bottom: 2px solid var(--border-color); padding-bottom: 1rem;">
+        <button type="button" id="showLoginBtn" class="submit-btn" style="flex: 1;">Log In</button>
+        <button type="button" id="showSignupBtn" class="submit-btn secondary-btn" style="flex: 1;">Sign Up</button>
+      </div>
+
+      <!-- Log In Form -->
+      <form id="loginForm">
+        <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Log In to Your Account</h3>
+        
+        <div class="field-item" style="margin-bottom: 1.25rem;">
+          <label for="loginEmail" class="field-label">Email Address *</label>
+          <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+        </div>
+
+        <div class="field-item" style="margin-bottom: 1.5rem;">
+          <label for="loginPassword" class="field-label">Password *</label>
+          <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <button type="submit" class="submit-btn" style="width: 100%;">Log In</button>
+        <div id="loginError" class="alert alert-danger" style="display: none; color: #dc3545; margin-top: 1rem; font-weight: 600;"></div>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signupForm" style="display: none;">
+        <h3 style="margin-bottom: 1.5rem; color: var(--primary-color);">Create New Account</h3>
+
+        <div class="field-item" style="margin-bottom: 1.25rem;">
+          <label for="signupName" class="field-label">Full Name *</label>
+          <input type="text" id="signupName" class="form-control" placeholder="e.g. Alex Smith" required>
+        </div>
+        
+        <div class="field-item" style="margin-bottom: 1.25rem;">
+          <label for="signupEmail" class="field-label">Email Address *</label>
+          <input type="email" id="signupEmail" class="form-control" placeholder="name@example.com" required>
+        </div>
+
+        <div class="field-item" style="margin-bottom: 1.5rem;">
+          <label for="signupPassword" class="field-label">Password (min 6 chars) *</label>
+          <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+        </div>
+
+        <button type="submit" class="submit-btn" style="width: 100%;">Sign Up</button>
+        <div id="signupSuccess" class="alert alert-success" style="display: none; color: #28a745; margin-top: 1rem; font-weight: 600;"></div>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Camp Horizon Summer Experience. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/validation.js"></script>
+</body>
+</html>

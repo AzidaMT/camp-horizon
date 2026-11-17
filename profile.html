@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camper Profile — Camp Horizon</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="logo">Camp <span>Horizon</span></div>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Sessions & Fees</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="contact.html">Gallery & Booking</a></li>
+        <li><a href="profile.html" class="active" aria-current="page">Profile</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="page-container" style="max-width: 650px;">
+    <section class="page-intro">
+      <h1>Camper Profile Dashboard</h1>
+      <p>Welcome back! Here are your account details and registered session information.</p>
+    </section>
+
+    <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 2.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+      <h3 style="color: var(--primary-color); margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-color); padding-bottom: 0.75rem;">Account Details</h3>
+      
+      <div style="display: flex; flex-direction: column; gap: 1rem; font-size: 1.05rem; margin-bottom: 2rem;">
+        <p><strong>Name:</strong> <span id="profileName" style="color: var(--text-main);">Loading...</span></p>
+        <p><strong>Email:</strong> <span id="profileEmail" style="color: var(--text-main);">Loading...</span></p>
+        <p><strong>Account Status:</strong> <span style="color: #28a745; font-weight: 600;">Active & Verified</span></p>
+        <p><strong>Registered Camp Tracks:</strong> <span id="profileTracks" style="color: var(--text-muted);">Wilderness Explorer & Aquatics</span></p>
+      </div>
+
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" id="logoutBtn" class="submit-btn" style="background-color: #ef4444;">Log Out</button>
+        <a href="services.html" class="submit-btn secondary-btn" style="text-decoration: none; text-align: center;">Browse More Sessions</a>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Camp Horizon Summer Experience. All rights reserved.</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/validation.js"></script>
+</body>
+</html>
