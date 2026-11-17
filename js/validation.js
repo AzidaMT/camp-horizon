@@ -326,3 +326,83 @@ $(document).ready(function () {
   }
 
 });
+
+/* --------------------------------------------------------------------------
+     TASK 5a. Authentication Simulation (login.html & profile.html)
+     -------------------------------------------------------------------------- */
+  $("#showLoginBtn").on("click", function () {
+    $("#loginForm").show();
+    $("#signupForm").hide();
+    $(this).removeClass("secondary-btn");
+    $("#showSignupBtn").addClass("secondary-btn");
+  });
+
+  $("#showSignupBtn").on("click", function () {
+    $("#signupForm").show();
+    $("#loginForm").hide();
+    $(this).removeClass("secondary-btn");
+    $("#showLoginBtn").addClass("secondary-btn");
+  });
+
+  // Sign Up stores user details in localStorage
+  $("#signupForm").on("submit", function (e) {
+    e.preventDefault();
+    const name = $.trim($("#signupName").val());
+    const email = $.trim($("#signupEmail").val());
+    const password = $("#signupPassword").val();
+
+    if (name && email && password) {
+      const userData = { name: name, email: email, password: password };
+      localStorage.setItem("campUser", JSON.stringify(userData));
+      $("#signupSuccess").text("Registration successful! You can now log in.").fadeIn();
+      setTimeout(function () {
+        $("#showLoginBtn").click();
+      }, 1500);
+    }
+  });
+
+  // Log In checks credentials and redirects to Profile Page
+  $("#loginForm").on("submit", function (e) {
+    e.preventDefault();
+    const email = $.trim($("#loginEmail").val());
+    const password = $("#loginPassword").val();
+    const storedUserStr = localStorage.getItem("campUser");
+
+    if (storedUserStr) {
+      const storedUser = JSON.parse(storedUserStr);
+      if (storedUser.email === email && storedUser.password === password) {
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "profile.html";
+      } else {
+        $("#loginError").text("Invalid email or password.").fadeIn();
+      }
+    } else {
+      // Demo fallback account
+      if (email === "demo@camp.com" && password === "password123") {
+        localStorage.setItem("campUser", JSON.stringify({ name: "Demo Camper", email: "demo@camp.com" }));
+        localStorage.setItem("isLoggedIn", "true");
+        window.location.href = "profile.html";
+      } else {
+        $("#loginError").text("No account found. Please sign up first (or use demo@camp.com / password123).").fadeIn();
+      }
+    }
+  });
+
+  // Profile Page Loader & Guard
+  if ($("#profileName").length) {
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
+    const storedUserStr = localStorage.getItem("campUser");
+
+    if (isLoggedIn !== "true" || !storedUserStr) {
+      window.location.href = "login.html";
+    } else {
+      const user = JSON.parse(storedUserStr);
+      $("#profileName").text(user.name);
+      $("#profileEmail").text(user.email);
+    }
+
+    $("#logoutBtn").on("click", function () {
+      localStorage.removeItem("isLoggedIn");
+      window.location.href = "login.html";
+    });
+  }
